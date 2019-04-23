@@ -24,10 +24,10 @@ public class EmpTest {
 		empDao dao=new empDaoImpl();
 		System.out.println(dao.addemp(new Employee(02, "222", "222", "222", "经理", "天津","")));
 	}
-	
+
 	//查询所有员工的方法
 	@Test
-		public void selectemp(){
+	public void selectemp(){
 		empDao dao=new empDaoImpl();
 		Map<Integer, String> map = dao.selectemp();
 		Set<Integer> keySet = map.keySet();
@@ -49,4 +49,11 @@ public class EmpTest {
 		empDao dao=new empDaoImpl();
 		System.out.println(dao.deleteemp(02));
 	}
+
+	//根据员工id 查询员工
+	@Test
+	public void selectempByeid(){
+		empDao dao=new empDaoImpl();
+		System.out.println(dao.selectempByeid(34));
 	}
+}

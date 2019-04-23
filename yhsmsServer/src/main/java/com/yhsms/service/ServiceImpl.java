@@ -25,7 +25,7 @@ public class ServiceImpl implements Service {
 	private menumBiz mbiz;
 	private menutypeBiz mnbiz;
 	private ordersBiz obiz;
-	
+
 	public ServiceImpl() {
 		this.cbiz=new cardBizImpl();
 		this.ebiz=new empBizImpl();
@@ -36,7 +36,7 @@ public class ServiceImpl implements Service {
 	@Override
 	//用户登录
 	public Card LoginUser(int id, String pass) {
-		
+
 		return cbiz.LoginUser(id, pass);
 	}
 	@Override
@@ -44,11 +44,11 @@ public class ServiceImpl implements Service {
 	public Map<Integer, String> ShowM() {
 		return mnbiz.selectmetype();
 	}
-	
+
 	@Override
 	//根据菜的类型编号查看菜单
 	public Map<Integer, String> showAllMenu(int id) {
-		
+
 		return mbiz.userseletemenu(id);
 	}
 	@Override
@@ -59,57 +59,57 @@ public class ServiceImpl implements Service {
 	@Override
 	//点菜
 	public String addMenu(int id, int num, int cid) {
-		
+
 		return this.obiz.addorders(id, num,cid);
 	}
-	
-	
+
+
 	@Override
 	//办卡的方法
 	public String addCard(Card c) {
-		
+
 		return cbiz.OpenCard(c);
 	}
 	@Override
 	//一个挂失的方法
 	public String Lock(int id, String note) {
-		
+
 		return cbiz.GuaCard(id, note);
 	}
 	@Override
 	//创建一个充值 的方法
 	public String addMoney(int id, double m) {
-		
+
 		return cbiz.addmoney(id, m);
 	}
 	@Override
 	//查看余额
 	public String selectmoney(int caid) {
-		
+
 		return cbiz.selectmoney(caid);
 	}
 	@Override
 	//设置会员优惠额度
 	public double setVip(double vip) {
-		
+
 		return cbiz.setVip(vip);
 	}
 	@Override
 	//设置Svip会员优惠额度
 	public double setSVip(double svip) {
-		
+
 		return cbiz.setSVip(svip);
 	}
 	@Override
 	//付款
 	public String paycard(int caid, double sum) {
-	
+
 		return cbiz.paycard(caid, sum);
 	}
 	@Override
 	//退款
 	public String returncard(int caid, double money) {
-		
+
 		return cbiz.returncard(caid, money);
 	}
 	@Override
@@ -128,6 +128,12 @@ public class ServiceImpl implements Service {
 	public String updateemp(int eid, String ejob) {
 		return ebiz.updateemp(eid, ejob);
 	}
+	@Override
+	//根据id查询员工信息
+		public Employee selectById(int id ){
+		return ebiz.selectempByeid(id);
+	}
+
 	@Override
 	//查询所有员工信息
 	public Map<Integer, String> finfAll() {
@@ -166,7 +172,7 @@ public class ServiceImpl implements Service {
 	@Override
 	//设置特价菜
 	public String setspecial(int mid) {
-		 return mbiz.setspecial(mid);
+		return mbiz.setspecial(mid);
 	}
 	@Override
 	//显示特价菜
@@ -175,70 +181,90 @@ public class ServiceImpl implements Service {
 	}
 	@Override
 	public String sysdate() {
-		
+
 		return this.obiz.sysdate();
 	}
 	@Override
 	public String addorders(int caid, int mid, int num) {
-		
+
 		return this.obiz.addorders(caid, mid, num);
 	}
 	@Override
 	public Map<Integer, String> selectordersBycaid(int caid) {
-		
+
 		return this.obiz.selectordersBycaid(caid);
 	}
 	@Override
 	public Map<Integer, String> selectnoworder(int caid) {
-		
+
 		return this.obiz.selectnoworder(caid);
 	}
 	@Override
 	public String emporder(int eid, int caid, int mid, int num) {
-		
+
 		return this.obiz.emporder(eid, caid, mid, num);
 	}
 	//根据员工号查询所有订单
 	@Override
 	public Map<Integer, String> selectorderbyeid(int eid) {
-		
+
 		return this.obiz.selectordersByeid(eid);
 	}
 	//删除订单
 	@Override
 	public void deleteorder(int oid) {
-		
-		 this.obiz.deleteorder(oid);
+
+		this.obiz.deleteorder(oid);
 	}
 	//修改订单
 	@Override
 	public String updateorder(int caid, int mid, int num) {
-		
+
 		return this.obiz.updateorder(caid, mid, num);
 	}
 	//结账
 	@Override
 	public double jiezhang(int caid) {
-		
+
 		return this.obiz.jiezhang(caid);
 	}
-	//查看月账单
-	@Override
-	public Map<Integer, String> month(int date) {
-	
-		return this.obiz.month(date);
-	}
 
+	
 	//删除菜
 	@Override
 	public String deleteM(int mid) {
-		
+
 		return this.mbiz.deletemenu(mid);
 	}
 	//添加菜的类型
 	@Override
 	public String addmenuType(int mtid, String mtname) {
-		// TODO Auto-generated method stub
 		return this.mnbiz.addmetype(mtid, mtname);
 	}
-}
+
+	//查看月销量
+	@Override
+	public Map<Integer, String> selectmonth(int i) {
+
+		return this.obiz.month(i);
+	}
+
+	//经理查看菜单
+	@Override
+	public Map<Integer, String> selectAllmenu() {
+
+		return this.mbiz.empseletemenu();
+	}
+	
+	//根据caid判断卡是否存在
+	@Override
+	  public Card selectCar(int cid){
+		return this.cbiz.selectcardBYcaid(cid);
+	}
+
+	 //修改员工工作地址
+		@Override
+	  	public String updataLoc(int eid,String loc){
+			return this.ebiz.updateloc(eid,loc);
+		}
+	}

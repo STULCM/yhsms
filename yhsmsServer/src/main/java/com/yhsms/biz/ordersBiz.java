@@ -38,4 +38,6 @@ public interface ordersBiz {
 	//查看员工月账单
 	public Map<Integer, String> empmonth(int eid,int date);
 
+//	//员工打印小票
+//	public Map<Integer,String> xiaopiao(int caid);
 }

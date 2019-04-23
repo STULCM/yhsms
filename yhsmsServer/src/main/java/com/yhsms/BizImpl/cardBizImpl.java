@@ -1,5 +1,8 @@
 package com.yhsms.BizImpl;
 
+import java.util.List;
+import java.util.Map;
+
 import com.yhsms.Dao.cardDao;
 import com.yhsms.DaoImpl.cardDaoImpl;
 import com.yhsms.biz.cardBiz;
@@ -10,7 +13,7 @@ public class cardBizImpl implements cardBiz {
 	private cardDao dao;
 
 
-	
+
 	public cardBizImpl() {
 		this.dao= new cardDaoImpl();
 	}
@@ -22,6 +25,14 @@ public class cardBizImpl implements cardBiz {
 		return this.dao.LoginUser(caid,capass);
 	}
 
+	
+	//经理查看所有会员卡
+	@Override
+		public List<Card> selectcard(){
+		
+		return this.dao.selectcard();
+		
+	}
 
 	//开卡的方法
 	@Override
@@ -33,10 +44,10 @@ public class cardBizImpl implements cardBiz {
 	//挂失冻结卡
 	@Override
 	public String GuaCard(int caid, String note) {
-		
+
 		return this.dao.GuaCard(caid,note)?"办理成功":"办理失败";
 	}
-	
+
 
 	//查看余额
 	@Override
@@ -49,7 +60,7 @@ public class cardBizImpl implements cardBiz {
 	//@Override
 	//public String setaddmoney(double money,double remoney) {
 
-		//return this.dao.setaddmoney(money,remoney);
+	//return this.dao.setaddmoney(money,remoney);
 	//}
 
 	//会员充值
@@ -88,6 +99,11 @@ public class cardBizImpl implements cardBiz {
 		return this.dao.returncard(caid,money)?"退款成功":"退款失败";
 	}
 
-	
+	//根据caid判断卡是否存在
+	@Override
+	public Card selectcardBYcaid(int caid){
+
+		return this.dao.selectcardBYcaid(caid);
+	}
 
 }

@@ -83,19 +83,25 @@ public class ordersBizImpl implements ordersBiz {
 	//查看月账单
 	@Override
 	public Map<Integer,String> month(int date){
-		
+
 		return this.dao.month(date);
-		
+
 	}
 
 
 	//查看员工月账单
 	@Override
 	public Map<Integer, String> empmonth(int eid,int date){
-		
+
 		return this.dao.empmonth(eid, date);
 	}
 
+//	//员工打印小票
+//	@Override
+//	public void xiaopiao(int caid){
+//
+//		 this.dao.xiaopiao(caid);
+//	}
 
 
 

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +32,7 @@ public class OrdersTest {
 	public void addorders() {
 		orderDao dao=new orderDaoImpl();
 
-		System.out.println(dao.addorders(0, 101, 3));
+		System.out.println(dao.addorders(0, 201, 3));
 
 	}
 
@@ -150,8 +151,15 @@ public class OrdersTest {
 		}
 	}
 
+//	//打印小票
+//	@Test
+//	public void xiaopiao(){
+//		orderDao dao=new orderDaoImpl();
+//		 dao.xiaopiao(0);
+//		
+//		}
+	}
 
 
 
 
-}

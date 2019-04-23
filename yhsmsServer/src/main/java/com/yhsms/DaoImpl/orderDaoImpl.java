@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import org.junit.Test;
 
 import com.yhsms.Dao.orderDao;
 import com.yhsms.domain.Orders;
@@ -71,7 +74,7 @@ public class orderDaoImpl implements orderDao {
 	public Map<Integer,String> selectordersBycaid(int caid) {
 		Map<Integer,String> map =new HashMap<Integer,String>();
 		this.db = new DBUtil();
-		String sql="select * from oitem where caid="+caid+" and (onote is null or onote ='已结账')";
+		String sql="select * from oitem where caid="+caid+" and (onote is null or onote ='已结账') order by otime";
 		try {
 			ResultSet rs = this.db.query(sql);
 			System.out.println("编号"+"\t"+"菜品编号"+"\t"+"数量"+"\t"+"金额"+"\t"+"备注"+"\t"+"下单时间");
@@ -94,12 +97,13 @@ public class orderDaoImpl implements orderDao {
 	public Map<Integer,String> selectnoworder(int caid) {
 		Map<Integer,String> map =new HashMap<Integer,String>();
 		this.db = new DBUtil();
-		String sql="select * from oitem where onote is null and caid="+caid;
+		String sql="select o.oid,o.mid,m.mname,o.num,m.mprice,o.oprice from oitem o,menum m"+
+				   " where o.caid="+caid+"and m.mid=o.mid and onote is null";
 		try {
 			ResultSet rs = this.db.query(sql);
-			System.out.println("编号"+"\t"+"菜品编号"+"\t"+"数量"+"\t"+"金额");
+			System.out.println("编号"+"\t"+"菜品编号"+"\t"+"菜名"+"\t"+"数量"+"\t"+"单价"+"\t"+"金额");
 			while(rs.next()){
-				map.put(rs.getInt("oid"),rs.getInt("mid")+"\t"+rs.getInt("num")+"\t"+rs.getDouble("oprice"));
+				map.put(rs.getInt("oid"),rs.getInt("mid")+"\t"+rs.getString("mname")+"\t"+rs.getInt("num")+"\t"+rs.getDouble("mprice")+"\t"+rs.getDouble("oprice"));
 			}
 			return map;
 		} catch (SQLException e) {
@@ -307,5 +311,30 @@ public class orderDaoImpl implements orderDao {
 
 	}
 
+//	//员工结账打印小票
+//	@Override
+//	public Map<Integer,String> xiaopiao(int caid){
+//		this.db = new DBUtil();
+//		Map<Integer, String> map=new  HashMap<Integer, String>();
+//		String oitem="select o.oid,o.mid,m.mname,o.num,m.mprice,o.oprice from oitem o,menum m"+
+//				" where o.caid="+caid+"and m.mid=o.mid and onote is null";
+//		try {
+//			ResultSet r =this. db.query(oitem);
+//			while(r.next()){
+//				map.put(r.getInt("oid"), r.getInt("mid")+"\t"+r.getString("mname")+"\t"+r.getInt("num")+"\t"+r.getDouble("mprice")+"\t"+r.getDouble("oprice"));
+//
+//					}
+//				return map;
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return null;
+//		}finally{
+//			this. db.close();
+//		}
 
-}
+	}
+
+
+

@@ -26,7 +26,7 @@ public class empDaoImpl implements empDao {
 			while(rs.next()){
 				if(rs.getString("eaccount").equals(eaccount) && rs.getString("enote")==null){
 					Employee e=new Employee(rs.getInt("eid"),rs.getString("ename"),rs.getString("eaccount"),rs.getString("epass"),rs.getString("ejob"),rs.getString("eloc"),rs.getString("eloc"));
-				return e;
+					return e;
 				}else if(rs.getString("enote")!=null){
 					System.out.println("该员工已被解雇"); 
 				}
@@ -39,7 +39,7 @@ public class empDaoImpl implements empDao {
 		}finally{
 			this.db.close();
 		}
-		
+
 		return null;
 	}
 
@@ -103,6 +103,27 @@ public class empDaoImpl implements empDao {
 
 	}
 
+
+	//修改员工地址的方法
+	@Override
+	public String updateloc(int eid,String eloc) {
+		this.db = new DBUtil();
+		String sql="update employee set eloc='"+eloc+"' where eid="+eid;
+		try {
+			int i = this.db.update(sql);
+			if(i>0){
+				return "修改成功！";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "修改失败！";
+		}finally{
+			this.db.close();
+		}	
+		return "修改失败！";
+	}
+
 	//删除员工的方法
 	@Override
 	public boolean deleteemp(int eid) {
@@ -119,7 +140,28 @@ public class empDaoImpl implements empDao {
 
 	}
 
+	//根据员工id 查询员工
+	@Override
+	public Employee selectempByeid(int eid){
+		this.db = new DBUtil();
+		String sql="select * from employee where enote is null and eid="+eid;
+		try {
+			ResultSet rs = this.db.query(sql);
+			//System.out.println("员工编号"+"\t"+"员工姓名"+"\t"+"工作职位"+"\t"+"工作地点");
+			while(rs.next()){
+				Employee e=new Employee(eid, rs.getString("ename"), rs.getString("eaccount"), rs.getString("epass"),  rs.getString("ejob"), rs.getString("eloc"), "");
+				return e;
+			}
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}finally{
+			this.db.close();
+		}
+		return null;
+	}
 }
 
 

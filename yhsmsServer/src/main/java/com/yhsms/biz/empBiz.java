@@ -19,7 +19,13 @@ public interface empBiz {
 	//修改员工信息的方法
 	public String updateemp(int eid,String ejob);
 	
+	//修改员工工作地址
+	public String updateloc(int eid,String eloc);
+	
 	//删除员工的方法
 	public String deleteemp(int eid);
+	
+	//根据员工id 查询员工
+	public Employee selectempByeid(int eid);
 	
 }

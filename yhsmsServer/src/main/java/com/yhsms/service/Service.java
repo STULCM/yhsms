@@ -42,7 +42,7 @@ public interface Service {
 	//修改员工权限的方法
 	public String updateemp(int eid,String ejob);
 	//根据id查询员工信息
-	//public Employee selectById(int id );
+	public Employee selectById(int id );
 	//查询所有员工信息
 	public Map<Integer,String> finfAll();
 	//创建一个经理查看菜单的方法
@@ -62,7 +62,7 @@ public interface Service {
 	//修改菜类型状态
 	public String updatemtnote(int mtid);
 	//查看月销量
-	//public List<Order> selectAllnum(int i);
+	public  Map<Integer, String> selectmonth(int i);
 	//设置特价菜
 	public String setspecial(int mid);
 	//显示特价菜
@@ -94,6 +94,15 @@ public interface Service {
 	//结账
 	public double jiezhang(int caid);
 
-	//查看月账单
-	public Map<Integer, String> month(int date); 
-}
+	//经理查看菜单
+	public Map<Integer,String> selectAllmenu();
+
+	//根据卡号查看用户
+    public Card selectCar(int cid);
+
+  //修改员工工作地址
+  	public String updataLoc(int eid,String loc);
+
+
+
+	}
